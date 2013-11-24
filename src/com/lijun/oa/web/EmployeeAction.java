@@ -19,7 +19,7 @@ public class EmployeeAction {
     @Autowired
 	private EmployeeService employeeService;
 	
-	private List<Employee> emlist = new ArrayList<Employee>();
+	private List<Employee> rows = new ArrayList<Employee>();
 	/***
 	 * 员工登录 
 	 * @return
@@ -41,17 +41,19 @@ public class EmployeeAction {
 	 * @return
 	 */
 	public String list(){
-		emlist=employeeService.listAll();
+		rows=employeeService.listAll();
 		return "json";
 	}
-	
-	public List<Employee> getEmlist() {
-		return emlist;
-	}
-	public void setEmlist(List<Employee> emlist) {
 
-		this.emlist = emlist;
+	public List<Employee> getRows() {
+		return rows;
 	}
+
+	public void setRows(List<Employee> rows) {
+		this.rows = rows;
+	}
+	
+	
 	
 //	public String  addEmployee(){
 //        Employee employee=new Employee();
