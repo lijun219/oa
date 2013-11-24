@@ -60,7 +60,7 @@ $(function(){
         </li>
         <li> <a href="#" class="nav-top-item" id="personnel"> 人事管理 </a>
           <ul>
-            <li><a href="employee/index.do" target="right_iframe">员工管理</a></li>
+            <li><a href="${pageContext.request.contextPath}/employee/index.do" target="right_iframe">员工管理</a></li>
             <li><a href="#" >薪酬管理</a></li>
             <li><a href="#">调动管理</a></li>
             <li><a href="#">考勤管理</a></li>
@@ -121,7 +121,7 @@ $(function(){
   </div>
   <!-- End #sidebar -->
   <div id="main-content">
- 	<iframe name="right_iframe" id="right_iframe" src="forward_index_right_content.do?param1=task&param2=index" width="100%" height="100%" frameborder="0" scrolling="yes"></iframe>
+ 	<iframe name="right_iframe" id="right_iframe" width="100%" height="100%" frameborder="0" scrolling="yes"></iframe>
   </div>
   <!-- End #main-content -->
 </div>
