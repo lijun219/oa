@@ -8,63 +8,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
  	<base href="<%=basePath%>">
-     <script src="${pageContext.request.contextPath}/script/jquery-1.7.2.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/script/jquery-easyui-1.3.4/jquery.easyui.min.js" type="text/javascript"></script>
-<link href="${pageContext.request.contextPath}/script/jquery-easyui-1.3.4/themes/default/easyui.css" rel="stylesheet" type="text/css" />
-<link href="${pageContext.request.contextPath}/script/jquery-easyui-1.3.4/themes/default/dialog.css" rel="stylesheet" type="text/css" />
-<link href="${pageContext.request.contextPath}/script/jquery-easyui-1.3.4/themes/icon.css" rel="stylesheet" type="text/css" />
-<script src="${pageContext.request.contextPath}/script/jquery-easyui-1.3.4/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/script/jquery-easyui-1.3.4/src/jquery.form.js" type="text/javascript"></script>
-
  <title>员工管理</title>
-    
+    <jsp:include page="/page/index/common.jsp"/>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-<%--<script type="text/javascript">--%>
-<%--  	$(function(){--%>
-<%--  		$.ajax({--%>
-<%--  			url : "${pageContext.request.contextPath}/employee/list.do",--%>
-<%--  			type:'post',--%>
-<%--  			success: function(data) {--%>
-<%--  	  			alert(data);--%>
-<%--  	  			var employee= data.emlist;--%>
-<%--  	  			var tr = $("<tr />"),td = $("<td/>");--%>
-<%--  				for(var i=0;i<employee.length;i++){--%>
-<%--  	  				var em=employee[i];--%>
-<%--  					var _tr = tr.clone()--%>
-<%--					.append(td.clone().append(em.id))--%>
-<%--					.append(td.clone().append(em.name))--%>
-<%--					.append(td.clone().append(em.mobile))--%>
-<%--					.append(td.clone().append(em.email))--%>
-<%--					.append(td.clone().append(em.account))--%>
-<%--					.append(td.clone().append(em.sex))--%>
-<%--					.append(td.clone().append(em.idCard))--%>
-<%--					.append(td.clone().append(em.address));--%>
-<%----%>
-<%--					_tr.appendTo("#dataEm");--%>
-<%--  	  			}--%>
-<%--  			}--%>
-<%--		});--%>
-<%--  	  })--%>
-<%--  </script>--%>
-<%--  <style>--%>
-<%--  .yg{border:1px solid gray;border-collapse: collapse;}--%>
-<%--  .yg td{border:1px solid gray; text-align: center;}--%>
-<%--  .yg tr {line-height:180%; }--%>
-<%--  </style>--%>
   </head>
   <body>
-
-<table id="dg"></table>
+	<table id="dg"></table>
   </body>
   <script>
 	$(function(){
 		  $('#dg').datagrid({   
 			   url:'${pageContext.request.contextPath}/employee/list.do',  
-			   loadMsg:"正在加载数据，请稍侯！",  
+			   pageNumber:1,
+			   pageSize:10,
+			   loadMsg:"正在加载数据，请稍侯！",
+			   width: "100%",
+			    height: "500",  
 			   columns:[[
 					{field:'ck',title:'选择',align:'center',checkbox:true},
 				    {field:'id',title:'ID',width:100},       
