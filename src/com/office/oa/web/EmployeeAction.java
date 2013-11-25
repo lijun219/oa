@@ -1,4 +1,4 @@
-package com.lijun.oa.web;
+package com.office.oa.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lijun.oa.model.Employee;
-import com.lijun.oa.service.EmployeeService;
+import com.office.oa.model.Employee;
+import com.office.oa.service.EmployeeService;
 
 
 /***

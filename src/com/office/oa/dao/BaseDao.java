@@ -1,4 +1,4 @@
-package com.lijun.oa.dao;
+package com.office.oa.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

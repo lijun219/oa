@@ -1,10 +1,10 @@
-package com.lijun.oa.dao.impl;
+package com.office.oa.dao.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import com.lijun.oa.dao.BaseDao;
-import com.lijun.oa.dao.EmployeeDao;
-import com.lijun.oa.model.Employee;
+import com.office.oa.dao.BaseDao;
+import com.office.oa.dao.EmployeeDao;
+import com.office.oa.model.Employee;
 
 @Repository(value = "employeeDao")
 public class EmployeeImplDao extends BaseDao implements EmployeeDao  {

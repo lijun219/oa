@@ -24,7 +24,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>com.lijun.oa.model</value>
+				<value>com.office.oa.model</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -45,7 +45,7 @@
 			</props>
 		</property>
 	</bean>
-	<context:component-scan base-package="com.lijun.oa" />
+	<context:component-scan base-package="com.office.oa" />
  
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager" >

@@ -1,8 +1,9 @@
-package com.lijun.oa.service;
+package com.office.oa.service;
 
 import java.util.List;
 
-import com.lijun.oa.model.Employee;
+import com.office.oa.model.Employee;
+
 
 
 /***
