@@ -1,4 +1,4 @@
-package com.lijun.oa.model;
+package com.office.oa.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /****
  * 
  * @author lijun

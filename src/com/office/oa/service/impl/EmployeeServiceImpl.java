@@ -1,4 +1,4 @@
-package com.lijun.oa.service.impl;
+package com.office.oa.service.impl;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lijun.oa.dao.EmployeeDao;
-import com.lijun.oa.model.Employee;
-import com.lijun.oa.service.EmployeeService;
+import com.office.oa.dao.EmployeeDao;
+import com.office.oa.model.Employee;
+import com.office.oa.service.EmployeeService;
 @Service(value="employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
 	@Resource

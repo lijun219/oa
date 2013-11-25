@@ -1,4 +1,4 @@
-package com.lijun.oa.model;
+package com.office.oa.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -13,19 +13,14 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-/****
- *费用类型
- * @author lijun
- *
- */
 @Entity
-@Table(name = "cost_type")
+@Table(name = "department")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class CostType implements Serializable, Cloneable {
+public class Department implements Serializable, Cloneable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6172543041717032549L;
+	private static final long serialVersionUID = -3029677639365994331L;
 	/***
 	 * id
 	 */
@@ -33,28 +28,41 @@ public class CostType implements Serializable, Cloneable {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", nullable = false)
 	private int id;
-	
-	/**
-	 * 费用类型
+	/***
+	 * 部门编号
 	 */
-	@Column(name = "cost_type", nullable = false, length = 200)
-	private String costType;
-	/**
-	 * 所示费用类型ID
+	@Column(name = "de_no", nullable = false)
+	private int deNo;
+	/***
+	 * 部门名称
+	 */
+	@Column(name = "de_name", length = 32)
+	private String deName;
+	/***
+	 * 父级部门编号
 	 */
 	@Column(name = "parent_id", nullable = false)
 	private int parentId;
+	
+	@Column(name = "de_status", nullable = true)
+	private Boolean deStatus;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getCostType() {
-		return costType;
+	public int getDeNo() {
+		return deNo;
 	}
-	public void setCostType(String costType) {
-		this.costType = costType;
+	public void setDeNo(int deNo) {
+		this.deNo = deNo;
+	}
+	public String getDeName() {
+		return deName;
+	}
+	public void setDeName(String deName) {
+		this.deName = deName;
 	}
 	public int getParentId() {
 		return parentId;
@@ -62,5 +70,12 @@ public class CostType implements Serializable, Cloneable {
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
-	
+	public Boolean getDeStatus() {
+		return deStatus;
+	}
+	public void setDeStatus(Boolean deStatus) {
+		this.deStatus = deStatus;
+	}
+
+
 }
