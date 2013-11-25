@@ -14,5 +14,5 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
        	 
-       	<bean name="employeeAction" class="com.lijun.oa.web.EmployeeAction" scope="prototype" />
+       	<bean name="employeeAction" class="com.office.oa.web.EmployeeAction" scope="prototype" />
 </beans>

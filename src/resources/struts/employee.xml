@@ -14,6 +14,7 @@
         	<result type="json" name="json"></result>
     	</action>
     	 <action name="addEmployee" class="employeeAction" method="addEmployee">
+    	 		<result name="add">/page/employee/addEmployee.jsp</result>
     	</action>
 	</package>
 </struts>

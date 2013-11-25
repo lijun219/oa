@@ -1,4 +1,4 @@
-package com.lijun.oa.web;
+package com.office.oa.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lijun.oa.model.Employee;
-import com.lijun.oa.service.EmployeeService;
+import com.office.oa.model.Employee;
+import com.office.oa.service.EmployeeService;
 
 
 /***
@@ -52,17 +52,7 @@ public class EmployeeAction {
 	public void setRows(List<Employee> rows) {
 		this.rows = rows;
 	}
-	
-	
-	
-//	public String  addEmployee(){
-//        Employee employee=new Employee();
-//        employee.setId(1);
-//        employee.setName("我要向上");
-//        employee.setAge("20");
-//        employee.setMobile("1388886666");
-//        employee.setAccount("wolegq");
-//        employeeService.addEmployee(employee);
-//        return null;
-//	}
+	public String  addEmployee(){
+       return "add";
+	}
 }
