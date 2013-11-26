@@ -4,13 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 /***
  * 
  * @author lijun
- *
+ * 
  */
-public class BaseDao{
+public class BaseDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -19,9 +18,8 @@ public class BaseDao{
 	 * 
 	 * @return
 	 */
-	protected  Session getCurrentSession() {
+	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
-	
 }
