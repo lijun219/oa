@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- ====================配置不需要过滤的资源==================== -->
+	<http pattern="/page/index/login.jsp" security="none" />
+	<http pattern="/js/**" security="none" />
+	<http pattern="/images/**" security="none" />
+	<http pattern="/css/**" security="none" />
+	<http pattern="/template/**" security="none" />
+	<!-- ======================================================= -->
+
+	<http use-expressions="true" entry-point-ref="authenticationEntryPoint"
+		access-denied-page="/page/index/no_auth.jsp">
+		<logout invalidate-session="true" logout-url="/logout"
+			success-handler-ref="simpleLogoutSuccessHandler" />
+
+		<custom-filter ref="simpleLoginFilter" position="FORM_LOGIN_FILTER" />
+		<custom-filter ref="simpleSecurityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+
+		<!-- 配置Cookies自动登录 -->
+		<remember-me services-ref="rememberMeServices" key="${security.sessionKey" />
+		<!-- 配置session超时后跳转的页面，以及一个用户只能登陆一次 -->
+		<session-management invalid-session-url="/page/index/session_timeout.jsp">
+			<concurrency-control max-sessions="1" />
+		</session-management>
+
+	</http>
+
+	<!-- ====================配置权限验证过滤器==================== -->
+	<beans:bean id="simpleSecurityFilter"
+		class="com.office.oa.security.authentication.filter.SimpleFilterSecurityFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="securityMetadataSource" ref="simpleSecurityMetadataSource" />
+		<beans:property name="accessDecisionManager" ref="simpleAccessDecisionManager" />
+
+	</beans:bean>
+
+	<beans:bean id="simpleSecurityMetadataSource"
+		class="com.office.oa.security.authentication.metadata.SimpleSecurityMetadataSource">
+		<beans:property name="pattern" value="/**" />
+	</beans:bean>
+
+	<beans:bean id="simpleAccessDecisionManager"
+		class="com.office.oa.security.authentication.decide.SimpleAccessDecisionManager" />
+
+	<!-- ====================配置登陆验证过滤器==================== -->
+	<beans:bean id="simpleLoginFilter"
+		class="com.office.oa.security.authentication.filter.SimpleUsernamePasswordAuthenticationFilter">
+		<beans:property name="filterProcessesUrl" value="/loginAction" />
+		<beans:property name="authenticationTokenResolver" ref="authenticationTokenResolver" />
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="rememberMeServices" ref="rememberMeServices" />
+		<!-- 验证通过所执行的请求 -->
+		<beans:property name="authenticationSuccessHandler"
+			ref="authenticationSuccessHandler" />
+		<!-- 验证未通过所执行的请求 -->
+		<beans:property name="authenticationFailureHandler"
+			ref="authenticationFailureHandler" />
+	</beans:bean>
+
+	<beans:bean id="authenticationTokenResolver"
+		class="com.office.oa.security.authentication.token.SimpleAuthenticationTokenResolver">
+		<beans:property name="parameterName" value="token" />
+		<beans:property name="parameterValue" value="${security.token}" />
+	</beans:bean>
+
+	<!-- ========================配置登录======================== -->
+	<beans:bean id="authenticationEntryPoint"
+		class="com.office.oa.security.login.SimpleAuthenticationEntryPoint">
+		<beans:property name="directUrlResolver" ref="loginDirectUrlResolver" />
+	</beans:bean>
+	<beans:bean id="loginDirectUrlResolver"
+		class="com.office.oa.security.shared.DirectUrlResolverImpl">
+		<beans:property name="pattern" value="/login" />
+		<beans:property name="directUrl" value="/page/index/login.jsp" />
+	</beans:bean>
+
+	<!-- ====================配置Cookies自动登录================== -->
+	<beans:bean id="rememberMeServices"
+		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<!-- Cookies保存的属性名 -->
+		<beans:property name="key" value="com.office.oa" />
+		<!-- 页面多选框标签的属性名 -->
+		<beans:property name="parameter" value="rememberMe" />
+		<!-- Cookies时间(秒) -->
+		<beans:property name="tokenValiditySeconds" value="1209600" />
+		<beans:property name="userDetailsService" ref="simpleUserDetailsService" />
+	</beans:bean>
+
+	<beans:bean id="simpleUserDetailsService"
+		class="com.office.oa.security.authentication.details.SimpleUserDetailService" />
+
+	<!-- ========================配置登出======================== -->
+	<beans:bean id="simpleLogoutSuccessHandler"
+		class="com.office.oa.security.logout.SimpleLogoutSuccessHandler">
+		<beans:property name="directUrlResolvers" ref="directUrlResolver" />
+	</beans:bean>
+
+	<beans:bean id="directUrlResolver"
+		class="com.office.oa.security.shared.ParameterDirectUrlResolverImpl">
+		<beans:property name="parameterName" value="token" />
+		<beans:property name="pattern" value="${security.token}" />
+		<beans:property name="directUrl" value="/page/index/login.jsp" />
+	</beans:bean>
+	<!-- ====================================================== -->
+
+	<!-- 登陆验证成功后的处理结果 -->
+	<beans:bean id="authenticationSuccessHandler"
+		class="com.office.oa.security.authentication.handler.SimpleAuthenticationSuccessHandler">
+		<beans:property name="directUrlResolver" ref="authenticationSuccessUrlResolver" />
+	</beans:bean>
+
+	<!-- 登陆验证失败后的处理结果 -->
+	<beans:bean id="authenticationFailureHandler"
+		class="com.office.oa.security.authentication.handler.SimpleAuthenticationFailureHandler">
+		<beans:property name="directUrlResolver" ref="authenticationFailureUrlResolver" />
+	</beans:bean>
+
+	<!-- 后台验证成功后的跳转地址 -->
+	<beans:bean id="authenticationSuccessUrlResolver"
+		class="com.office.oa.security.shared.ParameterDirectUrlResolverImpl">
+		<beans:property name="parameterName" value="token" />
+		<beans:property name="pattern" value="${security.token}" />
+		<beans:property name="directUrl" value="/admin/backend_page!main.action" />
+	</beans:bean>
+
+	<!-- 前台验证失败后的跳转地址 -->
+	<beans:bean id="authenticationFailureUrlResolver"
+		class="com.office.oa.security.shared.ParameterDirectUrlResolverImpl">
+		<beans:property name="parameterName" value="token" />
+		<beans:property name="pattern" value="${security.token}" />
+		<beans:property name="directUrl" value="/jsp/shop/login.jsp" />
+	</beans:bean>
+
+
+	<!-- 配置身份验证管理器 -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="simpleAuthenticationProvider" />
+	</authentication-manager>
+	<!-- 配置加密策略 -->
+	<beans:bean id="shaPasswordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<!-- 加密方式 SHA-256 -->
+		<beans:constructor-arg value="256" />
+	</beans:bean>
+
+	<!-- 配置密码的盐值 -->
+	<beans:bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<!-- 以用户名作为加密盐值 -->
+		<beans:property name="userPropertyToUse" value="username" />
+	</beans:bean>
+
+	<beans:bean id="simpleAuthenticationProvider"
+		class="com.office.oa.security.authentication.provider.SimpleAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="simpleUserDetailsService" />
+		<beans:property name="passwordEncoder" ref="shaPasswordEncoder" />
+		<beans:property name="saltSource" ref="saltSource" />
+	</beans:bean>
+
+</beans:beans>

@@ -26,7 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <a href=""><img id="logo" src="${pageContext.request.contextPath}/images/logo.png" alt="Simpla Admin logo" /></a> </div>
   <!-- End #logn-top -->
   <div id="login-content">
-    <form action="employee/login.do">
+  <!-- action="employee/login.do" -->
+    <form  action="/loginAction">
       <div class="notification information png_bg">
         <div> Just click "Sign In". No password needed. </div>
       </div>
