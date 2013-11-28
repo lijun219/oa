@@ -8,10 +8,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -24,7 +22,7 @@ public class SimpleSecurityMetadataSource extends AbstractMetadataSource impleme
 
 	@PostConstruct
 	public void init() {
-		System.out.println("******************");
+		System.out.println("初始化所有资源...");
 	}
 
 	@Override
