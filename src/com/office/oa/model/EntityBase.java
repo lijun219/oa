@@ -1,5 +1,7 @@
 package com.office.oa.model;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 实体基类
@@ -17,44 +22,25 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  */
 @MappedSuperclass
+@Getter
+@Setter
 public class EntityBase {
 
-	public static final String CREATE_DATE_PROPERTY_NAME = "createDate";// "创建日期"属性名称
-	public static final String MODIFY_DATE_PROPERTY_NAME = "modifyDate";// "修改日期"属性名称
+	public static final String CREATE_DATE_PROPERTY_NAME = "create_date";// "创建日期"属性名称
+	public static final String MODIFY_DATE_PROPERTY_NAME = "modify_date";// "修改日期"属性名称
 	public static final String ON_SAVE_METHOD_NAME = "onSave";// "保存"方法名称
 	public static final String ON_UPDATE_METHOD_NAME = "onUpdate";// "更新"方法名称
 
-	private String id; // ID
-	private Date createDate;// 创建时间
-	protected Date modifyDate;// 修改日期
-
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid")
-	public String getId() {
-		return id;
-	}
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", nullable = false)
+	private Integer id; // ID
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	@Column(name = "create_date", updatable = false, nullable = false)
+	private Date createDate;// 创建时间
 
-	@Column(updatable = false)
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+	@Column(name = "modify_date", updatable = false, nullable = false)
+	protected Date modifyDate;// 修改日期
 
 	@Transient
 	public void onSave() {
