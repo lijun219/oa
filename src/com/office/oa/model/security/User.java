@@ -23,14 +23,14 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 
-import com.office.oa.model.EntityBase;
+import com.office.oa.model.BaseEntity;
 
 @Entity
 @Table(name = "user")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Getter
 @Setter
-public class User extends EntityBase implements Serializable, Cloneable {
+public class User extends BaseEntity implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 41703184163597680L;
 

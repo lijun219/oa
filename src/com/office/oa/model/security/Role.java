@@ -14,7 +14,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.office.oa.model.EntityBase;
+import com.office.oa.model.BaseEntity;
 
 /**
  * 角色
@@ -27,7 +27,7 @@ import com.office.oa.model.EntityBase;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Getter
 @Setter
-public class Role extends EntityBase implements Serializable, Cloneable {
+public class Role extends BaseEntity implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 2199269777825531301L;
 

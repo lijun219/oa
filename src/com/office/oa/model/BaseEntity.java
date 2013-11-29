@@ -24,7 +24,7 @@ import lombok.Setter;
 @MappedSuperclass
 @Getter
 @Setter
-public class EntityBase {
+public class BaseEntity {
 
 	public static final String CREATE_DATE_PROPERTY_NAME = "create_date";// "创建日期"属性名称
 	public static final String MODIFY_DATE_PROPERTY_NAME = "modify_date";// "修改日期"属性名称
