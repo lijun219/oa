@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
@@ -26,6 +29,8 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
  */
 public class SimpleFilterSecurityFilter extends AbstractSecurityInterceptor implements Filter {
 
+	@Getter
+	@Setter
 	private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
 	// 注入SecurityMetadataSource
@@ -65,14 +70,6 @@ public class SimpleFilterSecurityFilter extends AbstractSecurityInterceptor impl
 	@Override
 	public Class<?> getSecureObjectClass() {
 		return FilterInvocation.class;
-	}
-
-	public FilterInvocationSecurityMetadataSource getSecurityMetadataSource() {
-		return securityMetadataSource;
-	}
-
-	public void setSecurityMetadataSource(FilterInvocationSecurityMetadataSource securityMetadataSource) {
-		this.securityMetadataSource = securityMetadataSource;
 	}
 
 }

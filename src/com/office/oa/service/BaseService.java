@@ -1,19 +1,22 @@
-package com.office.oa.dao;
+package com.office.oa.service;
 
 import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.springframework.dao.DataAccessException;
 
 import com.office.oa.util.Pager;
 
-public interface BaseDao<T, PK extends Serializable> {
-
-	public Session getSession();
+/**
+ * 
+ * @author huan.tao
+ * 
+ * @param <T>
+ * @param <PK>
+ */
+public interface BaseService<T, PK extends Serializable> {
 
 	/**
 	 * 根据ID获取实体对象
@@ -90,36 +93,24 @@ public interface BaseDao<T, PK extends Serializable> {
 	public void delete(PK[] ids);
 
 	/**
-	 * 根据HQL获得实体对象集合
+	 * 刷新session
 	 * 
-	 * @param HQL
-	 *            HQL语句
-	 * @return
 	 */
-	public List<T> find(String HQL);
+	public void flush();
 
 	/**
-	 * 根据HQL获得实体对象集合
+	 * 清除对象
 	 * 
-	 * @param HQL
-	 *            HQL语句
-	 * @param parameters
-	 *            可变参数
-	 * @return
+	 * @param object
+	 *            需要清除的对象
 	 */
-	public List<T> find(String HQL, Object... parameters);
+	public void evict(Object object);
 
 	/**
-	 * 根据HQL获得实体对象集合中的唯一结果
+	 * 清除Session
 	 * 
-	 * @param HQL
-	 *            HQL语句
-	 * @param parameters
-	 *            可变参数
-	 * @return
-	 * @throws DataAccessException
 	 */
-	public T uniqueResult(final String HQL, final Object... parameters) throws DataAccessException;
+	public void clear();
 
 	/**
 	 * 根据Pager进行查询(提供分页、查找、排序功能)
@@ -169,24 +160,4 @@ public interface BaseDao<T, PK extends Serializable> {
 	 * @return Pager对象
 	 */
 	public Pager findPager(Pager pager, Criteria criteria);
-
-	/**
-	 * 刷新session
-	 * 
-	 */
-	public void flush();
-
-	/**
-	 * 清除对象
-	 * 
-	 * @param object
-	 *            需要清除的对象
-	 */
-	public void evict(Object object);
-
-	/**
-	 * 清除Session
-	 * 
-	 */
-	public void clear();
 }

@@ -7,7 +7,7 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.springframework.stereotype.Component;
 
-import com.office.oa.model.EntityBase;
+import com.office.oa.model.BaseEntity;
 import com.office.oa.util.ReflectionUtil;
 
 /**
@@ -27,16 +27,16 @@ public class EntityInterceptor extends EmptyInterceptor {
 	 */
 	@Override
 	public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-		if (entity instanceof EntityBase) {
+		if (entity instanceof BaseEntity) {
 			// 遍历实体对象属性
 			for (int i = 0; i < propertyNames.length; i++) {
 				// 判断实体中是否有基类中的日期属性
-				if (EntityBase.CREATE_DATE_PROPERTY_NAME.equals(propertyNames[i]) || EntityBase.MODIFY_DATE_PROPERTY_NAME.equals(propertyNames[i])) {
+				if (BaseEntity.CREATE_DATE_PROPERTY_NAME.equals(propertyNames[i]) || BaseEntity.MODIFY_DATE_PROPERTY_NAME.equals(propertyNames[i])) {
 					// 对实体属性赋日期参数
 					state[i] = new Date();
 				}
 			}
-			ReflectionUtil.invokeSetterMethod(entity, EntityBase.CREATE_DATE_PROPERTY_NAME, new Date());
+			ReflectionUtil.invokeSetterMethod(entity, BaseEntity.CREATE_DATE_PROPERTY_NAME, new Date());
 		}
 		return true;
 	}
@@ -47,13 +47,13 @@ public class EntityInterceptor extends EmptyInterceptor {
 	 */
 	@Override
 	public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
-		if (entity instanceof EntityBase) {
+		if (entity instanceof BaseEntity) {
 			for (int i = 0; i < propertyNames.length; i++) {
-				if (EntityBase.MODIFY_DATE_PROPERTY_NAME.equals(propertyNames[i])) {
+				if (BaseEntity.MODIFY_DATE_PROPERTY_NAME.equals(propertyNames[i])) {
 					currentState[i] = new Date();
 				}
 			}
-			ReflectionUtil.invokeSetterMethod(entity, EntityBase.MODIFY_DATE_PROPERTY_NAME, new Date());
+			ReflectionUtil.invokeSetterMethod(entity, BaseEntity.MODIFY_DATE_PROPERTY_NAME, new Date());
 		}
 		return true;
 	}

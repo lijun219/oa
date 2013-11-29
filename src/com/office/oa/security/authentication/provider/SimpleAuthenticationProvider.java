@@ -20,6 +20,7 @@ public class SimpleAuthenticationProvider extends DaoAuthenticationProvider impl
 		String presentedPassword = authentication.getCredentials().toString();
 		// 获得用户名，作为加密盐值
 		Object salt = getSaltSource().getSalt(userDetails);
+		
 		// 判断密码是否匹配
 		if (!getPasswordEncoder().isPasswordValid(userDetails.getPassword(), presentedPassword, salt)) {
 			throw new BadCredentialsException("password is error");
@@ -28,7 +29,7 @@ public class SimpleAuthenticationProvider extends DaoAuthenticationProvider impl
 		return new SimpleAuthenticationToken(userDetails, authentication.getPrincipal(), userDetails.getAuthorities());
 	}
 
-	// 根据凭证判断登陆类型(前台,后台)
+	// 根据凭证判断登陆类型
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return SimpleAuthenticationToken.class.isAssignableFrom(authentication);

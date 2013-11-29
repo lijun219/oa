@@ -22,6 +22,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.office.oa.model.BaseEntity;
 
@@ -30,7 +31,7 @@ import com.office.oa.model.BaseEntity;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Getter
 @Setter
-public class User extends BaseEntity implements Serializable, Cloneable {
+public class User extends BaseEntity implements Serializable, Cloneable, UserDetails {
 
 	private static final long serialVersionUID = 41703184163597680L;
 

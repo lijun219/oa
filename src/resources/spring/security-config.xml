@@ -126,7 +126,7 @@
 		class="com.office.oa.security.shared.ParameterDirectUrlResolverImpl">
 		<beans:property name="parameterName" value="token" />
 		<beans:property name="pattern" value="${security.token}" />
-		<beans:property name="directUrl" value="/admin/backend_page!main.action" />
+		<beans:property name="directUrl" value="/" />
 	</beans:bean>
 
 	<!-- 前台验证失败后的跳转地址 -->
@@ -134,7 +134,7 @@
 		class="com.office.oa.security.shared.ParameterDirectUrlResolverImpl">
 		<beans:property name="parameterName" value="token" />
 		<beans:property name="pattern" value="${security.token}" />
-		<beans:property name="directUrl" value="/jsp/shop/login.jsp" />
+		<beans:property name="directUrl" value="/page/index/login.jsp" />
 	</beans:bean>
 
 

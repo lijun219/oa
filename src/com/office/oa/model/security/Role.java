@@ -1,14 +1,18 @@
 package com.office.oa.model.security;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.hibernate.annotations.Cache;
@@ -42,5 +46,11 @@ public class Role extends BaseEntity implements Serializable, Cloneable {
 
 	@Column(name = "status", nullable = false)
 	Integer status = 0;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false)
+	@JoinTable(name = "role_resource", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "resource_id") })
+	Set<Resource> resources = new HashSet<Resource>();
+	
 
 }

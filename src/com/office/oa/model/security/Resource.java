@@ -20,11 +20,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.office.oa.model.BaseEntity;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "resource")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@Getter
-@Setter
 public class Resource extends BaseEntity implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 388239367363082150L;
