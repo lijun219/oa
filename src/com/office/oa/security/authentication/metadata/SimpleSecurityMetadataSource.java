@@ -31,10 +31,9 @@ public class SimpleSecurityMetadataSource extends AbstractMetadataSource impleme
 	public void init() {
 		List<com.office.oa.model.security.Resource> resources = resourceService.getAllList();
 
-		log.info("\r\nInitialize all the resources ...");
+		log.info("Initialize all the resources ...");
 		for (com.office.oa.model.security.Resource resource : resources) {
 			resourceMap.put(resource.getUrl(), listToCollection(resource.getName()));
-			log.info("\r\n" + resource.getName() + " : " + resource.getUrl());
 		}
 	}
 

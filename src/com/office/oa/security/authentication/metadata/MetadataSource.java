@@ -22,11 +22,4 @@ public interface MetadataSource {
 	 */
 	public Collection<ConfigAttribute> getAttributes(Object filter);
 
-	/**
-	 * 根据URL判断所访问路径的资源类型
-	 * 
-	 * @param request
-	 * @return
-	 */
-	public boolean supports(HttpServletRequest request);
 }

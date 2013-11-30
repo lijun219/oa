@@ -17,11 +17,7 @@ public class SimpleLogoutSuccessHandler implements LogoutSuccessHandler {
 
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		if (directUrlResolver.support(request)) {
-			response.sendRedirect(request.getContextPath() + directUrlResolver.getDirectUrl());
-			return;
-		}
-		throw new UnsupportedOperationException("No login success url resolver found!");
+		response.sendRedirect(request.getContextPath() + directUrlResolver.getDirectUrl());
 	}
 
 	public DirectUrlResolver getDirectUrlResolvers() {

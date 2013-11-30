@@ -25,7 +25,6 @@ import com.sun.tools.apt.Main;
  * @author huan.tao
  * 
  */
-@Log4j
 public class SimpleUserDetailService implements UserDetailsService {
 
 	@Resource(name = "userService")
@@ -35,11 +34,8 @@ public class SimpleUserDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
 		User user = userService.getUserByUsername(userName);
-		if (user == null) {
-			throw new BadCredentialsException("Not Found UserDetail,userName=" + userName);
-		}
-		user.setAuthorities(getUserAuthoritiesByUser(user));
-		log.info("\r\nload user by user name ");
+		if (user != null)
+			user.setAuthorities(getUserAuthoritiesByUser(user));
 
 		return user;
 	}

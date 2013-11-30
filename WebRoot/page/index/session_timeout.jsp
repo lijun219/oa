@@ -14,7 +14,7 @@
 <body>
 	<center>会话超时!您没有登录,或登录超时,请重新登录!</center>
 	<center>
-		<a href="/">登陆</a>
+		<a href="page/index/login.jsp">登陆</a>
 	</center>
 </body>
 </html>

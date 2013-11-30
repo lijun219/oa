@@ -24,10 +24,8 @@ public class SimpleAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-		if (directUrlResolver.support(request)) {
-			// 添加跳转的URL
-			setDefaultTargetUrl(directUrlResolver.getDirectUrl());
-		}
+		// 添加跳转的URL
+		setDefaultTargetUrl(directUrlResolver.getDirectUrl());
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 

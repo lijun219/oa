@@ -12,14 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface AuthenticationTokenResolver {
 
 	/**
-	 * 判断登录URL类型
-	 * 
-	 * @param request
-	 * @return
-	 */
-	public boolean support(HttpServletRequest request);
-
-	/**
 	 * 返回登录的用户凭证
 	 * 
 	 * @param request
