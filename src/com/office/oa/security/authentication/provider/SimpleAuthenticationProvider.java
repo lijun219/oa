@@ -12,6 +12,7 @@ import com.office.oa.security.authentication.token.SimpleAuthenticationToken;
 
 public class SimpleAuthenticationProvider extends DaoAuthenticationProvider implements AuthenticationProvider {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		SimpleAuthenticationToken authenticationToken = (SimpleAuthenticationToken) authentication;
@@ -27,7 +28,7 @@ public class SimpleAuthenticationProvider extends DaoAuthenticationProvider impl
 
 		// 判断密码是否匹配
 		if (!getPasswordEncoder().isPasswordValid(userDetails.getPassword(), presentedPassword, salt)) {
-			throw new BadCredentialsException("password is error");
+			throw new BadCredentialsException("用户名或密码错误。");
 		}
 		// 重新构建UsernamePasswordAuthenticationToken传递给决策管理器进行授权管理
 		

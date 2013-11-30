@@ -1,14 +1,10 @@
 package com.office.oa.security.authentication.filter;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;

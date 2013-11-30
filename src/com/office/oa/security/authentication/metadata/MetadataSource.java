@@ -2,8 +2,6 @@ package com.office.oa.security.authentication.metadata;
 
 import java.util.Collection;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.security.access.ConfigAttribute;
 
 /**

@@ -1,6 +1,5 @@
 package com.office.oa.security.shared;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 

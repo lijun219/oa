@@ -2,8 +2,6 @@ package com.office.oa.security.authentication.token;
 
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.extern.log4j.Log4j;
-
 import org.springframework.security.core.Authentication;
 
 /**
@@ -12,7 +10,6 @@ import org.springframework.security.core.Authentication;
  * @author huan.tao
  * 
  */
-@Log4j
 public class SimpleAuthenticationTokenResolver implements AuthenticationTokenResolver {
 
 	public static final String USERNAME = "username"; // 登陆用户名

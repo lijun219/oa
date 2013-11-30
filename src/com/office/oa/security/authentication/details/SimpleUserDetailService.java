@@ -5,10 +5,6 @@ import java.util.HashSet;
 
 import javax.annotation.Resource;
 
-import lombok.extern.log4j.Log4j;
-
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,13 +14,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.office.oa.model.security.Role;
 import com.office.oa.model.security.User;
 import com.office.oa.service.security.UserService;
-import com.sun.tools.apt.Main;
 
 /**
  * 
  * @author huan.tao
  * 
  */
+@SuppressWarnings("deprecation")
 public class SimpleUserDetailService implements UserDetailsService {
 
 	@Resource(name = "userService")
