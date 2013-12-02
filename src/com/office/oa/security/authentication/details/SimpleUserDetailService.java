@@ -1,17 +1,13 @@
 package com.office.oa.security.authentication.details;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import javax.annotation.Resource;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache;
 
-import com.office.oa.model.security.Role;
 import com.office.oa.model.security.User;
 import com.office.oa.service.security.UserService;
 
@@ -20,7 +16,6 @@ import com.office.oa.service.security.UserService;
  * @author huan.tao
  * 
  */
-@SuppressWarnings("deprecation")
 public class SimpleUserDetailService implements UserDetailsService {
 
 	@Resource(name = "userService")
@@ -30,20 +25,10 @@ public class SimpleUserDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
 		User user = userService.getUserByUsername(userName);
-		if (user != null)
-			user.setAuthorities(getUserAuthoritiesByUser(user));
+
+		user.setAuthorities(userService.getUserAuthoritiesByUser(user));
 
 		return user;
-	}
-
-	public Collection<GrantedAuthority> getUserAuthoritiesByUser(User user) {
-		Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		for (Role role : user.getRoles()) {
-			for (com.office.oa.model.security.Resource resource : role.getResources()) {
-				authorities.add(new GrantedAuthorityImpl(resource.getName()));
-			}
-		}
-		return authorities;
 	}
 
 }

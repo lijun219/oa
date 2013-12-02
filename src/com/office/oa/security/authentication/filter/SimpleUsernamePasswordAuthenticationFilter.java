@@ -13,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.office.oa.security.authentication.token.AuthenticationTokenResolver;
-import com.office.oa.security.shared.DirectUrlResolverImpl;
 
 /**
  * 登录过滤器
@@ -26,10 +25,7 @@ public class SimpleUsernamePasswordAuthenticationFilter extends UsernamePassword
 	@Getter
 	@Setter
 	AuthenticationTokenResolver authenticationTokenResolver;
-	@Getter
-	@Setter
-	DirectUrlResolverImpl loginUrlResolver;
-
+	
 	/**
 	 * 重写验证方法
 	 */

@@ -44,7 +44,7 @@
 				</p>
 				<div class="clear"></div>
 				<p id="remember-password">
-					<label><input type="checkbox" />记住我</label>
+					<label><input name="rememberMe" type="checkbox" />记住我</label>
 				</p>
 				<div class="clear"></div>
 				<p>

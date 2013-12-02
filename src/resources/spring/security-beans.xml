@@ -60,7 +60,6 @@
 	<bean id="simpleLoginFilter"
 		class="com.office.oa.security.authentication.filter.SimpleUsernamePasswordAuthenticationFilter">
 		<property name="filterProcessesUrl" value="/loginAction" />
-		<property name="loginUrlResolver" ref="loginUrlResolver" />
 		<property name="authenticationTokenResolver" ref="authenticationTokenResolver" />
 		<property name="authenticationManager" ref="authenticationManager" />
 		<property name="rememberMeServices" ref="rememberMeServices" />

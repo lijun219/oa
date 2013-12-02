@@ -2,6 +2,8 @@ package com.office.oa.security.authentication.decide;
 
 import java.util.Collection;
 
+import lombok.extern.log4j.Log4j;
+
 import org.apache.log4j.Logger;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,30 +19,25 @@ import org.springframework.security.web.FilterInvocation;
  * @author huan.tao
  * 
  */
+@Log4j
 public class SimpleAccessDecisionManager implements AccessDecisionManager {
-
-	private static final Logger logger = Logger.getLogger(SimpleAccessDecisionManager.class);
-
+	
 	@Override
 	public void decide(Authentication authentication, Object filter, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
 
 		String URL = ((FilterInvocation) filter).getRequestUrl();
 		// 判断当前访问的资源是否属于受限资源
 		if (configAttributes == null || configAttributes.size() == 0) {
-			if (logger.isDebugEnabled()) {
-				logger.info("当前访问的资源" + URL + "不属于受限资源");
-				return;
-			}
+			log.info("当前访问的资源" + URL + "不属于受限资源");
+			return;
 		}
 		// 遍历访问该资源的所需权限属性
 		for (ConfigAttribute attribute : configAttributes) {
 			// 遍历访问用户当前的权限属性
 			for (GrantedAuthority authority : authentication.getAuthorities()) {
 				if (attribute.getAttribute().equals(authority.getAuthority())) {
-					if (logger.isDebugEnabled()) {
-						logger.info("当前用户的{" + authority.getAuthority() + "}角色满足访问条件");
-						return;
-					}
+					log.info("当前用户的{" + authority.getAuthority() + "}角色满足访问条件");
+					return;
 				}
 			}
 		}

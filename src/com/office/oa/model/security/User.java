@@ -50,17 +50,20 @@ public class User extends BaseEntity implements Serializable, Cloneable, UserDet
 	@Column(name = "login_ip", nullable = true)
 	String loginIp;
 
-	@Column(name = "expired", nullable = false)
+	@Column(name = "account_non_expired", nullable = false)
 	boolean accountNonExpired = false; // 账号是否未过期
 
-	@Column(name = "locked", nullable = false)
+	@Column(name = "account_non_locked", nullable = false)
 	boolean accountNonLocked = false; // 账号是否未锁定
 
-	@Column(name = "credentials_expired", nullable = false)
+	@Column(name = "credentials_non_expired", nullable = false)
 	boolean credentialsNonExpired = false; // 账号凭证是否未过期
 
 	@Column(name = "enabled", nullable = false)
 	boolean enabled = false; // 账号是否可用
+	
+	@Column(name = "online",nullable = false)
+	boolean online = false;
 
 	// 与Role的多对多关系
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

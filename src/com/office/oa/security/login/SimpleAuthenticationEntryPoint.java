@@ -29,6 +29,7 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 		// 跳转到登陆依据所绑定的登录页面
 		request.getRequestDispatcher(directUrlResolver.getDirectUrl()).forward(request, response);
+
 	}
 
 }

@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
@@ -18,23 +21,18 @@ import com.office.oa.security.shared.DirectUrlResolver;
  */
 public class SimpleAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-	private DirectUrlResolver directUrlResolver;
+	@Getter
+	@Setter
+	DirectUrlResolver directUrlResolver;
 
 	// 验证成功执行的方法，跳转到成功的URL
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
 		// 添加跳转的URL
-		setDefaultTargetUrl(directUrlResolver.getDirectUrl());
+		 setDefaultTargetUrl(directUrlResolver.getDirectUrl());
+		//request.getRequestDispatcher("").forward(request, response);
 		super.onAuthenticationSuccess(request, response, authentication);
-	}
-
-	public DirectUrlResolver getDirectUrlResolver() {
-		return directUrlResolver;
-	}
-
-	public void setDirectUrlResolver(DirectUrlResolver directUrlResolver) {
-		this.directUrlResolver = directUrlResolver;
 	}
 
 }
