@@ -71,6 +71,11 @@ public class BaseServiceImpl<T, PK extends Serializable> implements BaseService<
 	}
 
 	@Override
+	public T merge(T entity) {
+		return baseDao.merge(entity);
+	}
+
+	@Override
 	@Transactional
 	public void delete(T entity) {
 		baseDao.delete(entity);

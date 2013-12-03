@@ -32,7 +32,7 @@ public class SimpleAuthenticationProvider extends AbstractUserDetailsAuthenticat
 		// 判断密码是否匹配
 		System.err.println(passwordEncoder.encodePassword(presentedPassword, salt));
 		if (!getPasswordEncoder().isPasswordValid(userDetails.getPassword(), presentedPassword, salt)) {
-			throw new AuthenticationServiceException("用户名或密码不能为空。");
+			throw new AuthenticationServiceException("用户名或密码错误。");
 		}
 	}
 

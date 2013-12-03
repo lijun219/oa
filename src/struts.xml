@@ -5,5 +5,5 @@
 <struts>
     <constant name="struts.action.extension" value="do" />
 
-	<include file="resources/struts/employee.xml"></include>
+	<include file="resources/struts/*.xml"></include>
 </struts>

@@ -13,16 +13,6 @@
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 
-	<!-- ====================配置跳转地址==================== -->
-	<!-- 登录地址 -->
-	<bean id="loginUrlResolver" class="com.office.oa.security.shared.DirectUrlResolverImpl">
-		<property name="directUrl" value="/page/index/login.jsp" />
-	</bean>
-	<!-- 主页地址 -->
-	<bean id="indexUrlResolver" class="com.office.oa.security.shared.DirectUrlResolverImpl">
-		<property name="directUrl" value="/page/index/index.jsp" />
-	</bean>
-
 	<!-- ====================配置身份验证管理器==================== -->
 	<bean id="simpleUserDetailsService"
 		class="com.office.oa.security.authentication.details.SimpleUserDetailService" />
@@ -50,7 +40,7 @@
 	<!-- ========================配置认证入口======================== -->
 	<bean id="authenticationEntryPoint"
 		class="com.office.oa.security.login.SimpleAuthenticationEntryPoint">
-		<property name="directUrlResolver" ref="loginUrlResolver" />
+		<property name="directUrl" value="/page/index/login.jsp" />
 	</bean>
 
 	<!-- ====================配置登陆验证过滤器==================== -->
@@ -68,16 +58,12 @@
 		<!-- 验证未通过所执行的请求 -->
 		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
 	</bean>
-	<!-- 登陆验证成功后的处理结果 ，跳转到主页 -->
+	<!-- 登陆验证成功后的处理结果 -->
 	<bean id="authenticationSuccessHandler"
-		class="com.office.oa.security.authentication.handler.SimpleAuthenticationSuccessHandler">
-		<property name="directUrlResolver" ref="indexUrlResolver" />
-	</bean>
-	<!-- 登陆验证失败后的处理结果，跳转到登录页 -->
+		class="com.office.oa.security.authentication.handler.SimpleAuthenticationSuccessHandler" />
+	<!-- 登陆验证失败后的处理结果 -->
 	<bean id="authenticationFailureHandler"
-		class="com.office.oa.security.authentication.handler.SimpleAuthenticationFailureHandler">
-		<property name="directUrlResolver" ref="loginUrlResolver" />
-	</bean>
+		class="com.office.oa.security.authentication.handler.SimpleAuthenticationFailureHandler" />
 
 	<!-- ====================配置权限验证过滤器==================== -->
 	<bean id="simpleSecurityFilter"
@@ -107,8 +93,6 @@
 	<!-- ========================配置登出======================== -->
 
 	<bean id="simpleLogoutSuccessHandler"
-		class="com.office.oa.security.logout.SimpleLogoutSuccessHandler">
-		<property name="directUrlResolvers" ref="loginUrlResolver" />
-	</bean>
+		class="com.office.oa.security.authentication.handler.SimpleLogoutSuccessHandler" />
 
 </beans>

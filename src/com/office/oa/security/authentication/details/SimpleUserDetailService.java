@@ -2,11 +2,9 @@ package com.office.oa.security.authentication.details;
 
 import javax.annotation.Resource;
 
-import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache;
 
 import com.office.oa.model.security.User;
 import com.office.oa.service.security.UserService;

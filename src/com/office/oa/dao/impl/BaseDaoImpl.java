@@ -54,6 +54,13 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
 	private Class<T> entityClass;
 
+	@Getter
+	@Setter
+	@Resource(name = "sessionFactory")
+	SessionFactory sessionFactory;
+
+	private static Session session;
+
 	// 获得泛型的实体对象
 	public BaseDaoImpl() {
 		Type type = getClass().getGenericSuperclass();
@@ -63,14 +70,11 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 		}
 	}
 
-	@Getter
-	@Setter
-	@Resource(name = "sessionFactory")
-	SessionFactory sessionFactory;
-
 	@Override
 	public Session getSession() {
-		return sessionFactory.openSession();
+		if (session == null)
+			session = sessionFactory.openSession();
+		return session;
 	}
 
 	@Override
@@ -126,6 +130,11 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 	}
 
 	@Override
+	public void saveOrUpdate(T entity) {
+		this.getSession().saveOrUpdate(entity);
+	}
+
+	@Override
 	public void delete(T entity) {
 		this.getSession().delete(entity);
 	}
@@ -137,7 +146,13 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 	}
 
 	@Override
+	public T merge(T entity) {
+		return (T) getSession().merge(entity);
+	}
+
+	@Override
 	public void delete(PK[] ids) {
+
 		for (PK id : ids) {
 			T entity = (T) getSession().get(this.entityClass, id);
 			getSession().delete(entity);

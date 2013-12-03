@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import lombok.extern.log4j.Log4j;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;

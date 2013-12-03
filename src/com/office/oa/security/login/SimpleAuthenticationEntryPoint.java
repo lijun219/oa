@@ -12,8 +12,6 @@ import lombok.Setter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.office.oa.security.shared.DirectUrlResolver;
-
 /**
  * 
  * @author huan.tao
@@ -23,13 +21,12 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
 	@Getter
 	@Setter
-	DirectUrlResolver directUrlResolver;
+	String directUrl;
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 		// 跳转到登陆依据所绑定的登录页面
-		request.getRequestDispatcher(directUrlResolver.getDirectUrl()).forward(request, response);
-
+		request.getRequestDispatcher(directUrl).forward(request, response);
+		//response.sendRedirect(request.getContextPath() + directUrlResolver.getDirectUrl());
 	}
-
 }

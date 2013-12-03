@@ -8,7 +8,6 @@ import org.hibernate.type.Type;
 import org.springframework.stereotype.Component;
 
 import com.office.oa.model.BaseEntity;
-import com.office.oa.util.ReflectionUtil;
 
 /**
  * 拦截器 TODO:自动填充创建日期、修改日期
@@ -36,7 +35,7 @@ public class EntityInterceptor extends EmptyInterceptor {
 					state[i] = new Date();
 				}
 			}
-			ReflectionUtil.invokeSetterMethod(entity, BaseEntity.CREATE_DATE_PROPERTY_NAME, new Date());
+			//ReflectionUtil.invokeSetterMethod(entity, BaseEntity.CREATE_DATE_PROPERTY_NAME, new Date());
 		}
 		return true;
 	}
@@ -53,7 +52,7 @@ public class EntityInterceptor extends EmptyInterceptor {
 					currentState[i] = new Date();
 				}
 			}
-			ReflectionUtil.invokeSetterMethod(entity, BaseEntity.MODIFY_DATE_PROPERTY_NAME, new Date());
+			//ReflectionUtil.invokeSetterMethod(entity, BaseEntity.MODIFY_DATE_PROPERTY_NAME, new Date());
 		}
 		return true;
 	}

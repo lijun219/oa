@@ -22,6 +22,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	@Resource(name = "userDao")
 	UserDao userDao;
 
+	public void setUserDao(UserDao userDao) {
+		super.setBaseDao(userDao);
+	}
+
 	@Override
 	public User getUserByUsername(String userName) {
 		if (userName != null) {

@@ -36,6 +36,8 @@ public interface BaseService<T, PK extends Serializable> {
 	 */
 	public T load(PK id);
 
+	public T merge(T entity);
+
 	/**
 	 * 获取所有实体对象集合
 	 * 

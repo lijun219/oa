@@ -65,6 +65,13 @@ public interface BaseDao<T, PK extends Serializable> {
 	public void update(T entity);
 
 	/**
+	 * 保存或更新
+	 * 
+	 * @param entity
+	 */
+	public void saveOrUpdate(T entity);
+
+	/**
 	 * 删除实体对象
 	 * 
 	 * @param entity
@@ -88,6 +95,9 @@ public interface BaseDao<T, PK extends Serializable> {
 	 *            ID数组
 	 */
 	public void delete(PK[] ids);
+	
+	
+	public T merge(T entity);
 
 	/**
 	 * 根据HQL获得实体对象集合

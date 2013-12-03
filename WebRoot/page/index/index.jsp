@@ -38,13 +38,11 @@ $(function(){
   <div id="sidebar">
     <div id="sidebar-wrapper">
       <!-- Sidebar with logo and menu -->
-      <h1 id="sidebar-title"><a href="#">Simpla Admin</a></h1>
-      <!-- Logo (221px wide) -->
-      <a href="http://www.865171.cn"><img id="logo" src="${pageContext.request.contextPath}/images/logo.png" alt="Simpla Admin logo" /></a>
+      <h1 id="sidebar-title"><a href="#">管理员</a></h1>
       <!-- Sidebar Profile links -->
-      <div id="profile-links"> Hello, <a href="#" title="Edit your profile">865171</a>, you have <a href="#messages" rel="modal" title="3 Messages">3 Messages</a><br />
+      <div id="profile-links"> 您好, <a href="#" title="Edit your profile">admin</a>, 你有 <a href="#messages" rel="modal" title="3 Messages">3条新消息</a><br />
         <br />
-        <a href="#" title="View the Site">View the Site</a> | <a href="#" title="Sign Out">Sign Out</a> </div>
+      <a href="logout" title="退出">退出</a> </div>
       <ul id="main-nav">
         <!-- Accordion Menu -->
         <li> <a href="#" class="nav-top-item" id="myprocedures">我的流程 </a> 

@@ -9,18 +9,29 @@
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>没有权限</title>
+<title>登陆超时</title>
+<link rel="stylesheet" href="css/reset.css" type="text/css"
+	media="screen">
+<link rel="stylesheet" href="css/style.css" type="text/css"
+	media="screen">
 <script type="text/javascript">
-	if (self.location != top.location) {
-		top.location.href = location.href;
-	}
+	var t = 3;
+	setInterval(function() {
+		if (t <= 0) {
+			history.go(-1);
+		}
+		document.getElementById("time").innerHTML = t;
+		t = t - 1;
+	}, 1000)
 </script>
-
 </head>
-
-<body>
-	<center>
-		你没有权限访问该页面！ <a href="${base}/index.jsp">返回首页</a>
+<body style="background-image: none;">
+	<center style="margin-top:20%;">
+		<p>您没有权限访问该页面！<font id="time">3</font>秒后将自动返回。</p>
+		<p>
+			<a href="${base}/index.jsp">首页</a>&nbsp;&nbsp; <a
+				href="javascript:void(0);" onclick="history.go(-1);">上一页</a>
+		</p>
 	</center>
 </body>
 </html>
