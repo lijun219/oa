@@ -19,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  *
  */
 @Entity
-@Table(name = "procedure")
+@Table(name = "procedures")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Procedure  implements Serializable, Cloneable{
 	/**

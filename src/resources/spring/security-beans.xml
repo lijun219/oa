@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<!-- ====================配置身份验证管理器==================== -->
+	<bean id="simpleUserDetailsService"
+		class="com.office.oa.security.authentication.details.SimpleUserDetailService" />
+
+	<!-- 配置加密策略 -->
+	<bean id="shaPasswordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<!-- 加密方式 SHA-256 -->
+		<constructor-arg value="256" />
+	</bean>
+	<!-- 配置密码的盐值 -->
+	<bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<!-- 以用户名作为加密盐值 -->
+		<property name="userPropertyToUse" value="username" />
+	</bean>
+
+	<bean id="simpleAuthenticationProvider"
+		class="com.office.oa.security.authentication.provider.SimpleAuthenticationProvider">
+		<property name="userDetailsService" ref="simpleUserDetailsService" />
+		<property name="passwordEncoder" ref="shaPasswordEncoder" />
+		<property name="saltSource" ref="saltSource" />
+	</bean>
+
+	<!-- ========================配置认证入口======================== -->
+	<bean id="authenticationEntryPoint"
+		class="com.office.oa.security.login.SimpleAuthenticationEntryPoint">
+		<property name="directUrl" value="/page/index/login.jsp" />
+	</bean>
+
+	<!-- ====================配置登陆验证过滤器==================== -->
+	<!-- 配置用户凭证 -->
+	<bean id="authenticationTokenResolver"
+		class="com.office.oa.security.authentication.token.SimpleAuthenticationTokenResolver" />
+	<bean id="simpleLoginFilter"
+		class="com.office.oa.security.authentication.filter.SimpleUsernamePasswordAuthenticationFilter">
+		<property name="filterProcessesUrl" value="/loginAction" />
+		<property name="authenticationTokenResolver" ref="authenticationTokenResolver" />
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="rememberMeServices" ref="rememberMeServices" />
+		<!-- 验证通过所执行的请求 -->
+		<property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+		<!-- 验证未通过所执行的请求 -->
+		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
+	</bean>
+	<!-- 登陆验证成功后的处理结果 -->
+	<bean id="authenticationSuccessHandler"
+		class="com.office.oa.security.authentication.handler.SimpleAuthenticationSuccessHandler" />
+	<!-- 登陆验证失败后的处理结果 -->
+	<bean id="authenticationFailureHandler"
+		class="com.office.oa.security.authentication.handler.SimpleAuthenticationFailureHandler" />
+
+	<!-- ====================配置权限验证过滤器==================== -->
+	<bean id="simpleSecurityFilter"
+		class="com.office.oa.security.authentication.filter.SimpleFilterSecurityFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="securityMetadataSource" ref="simpleSecurityMetadataSource" />
+		<property name="accessDecisionManager" ref="simpleAccessDecisionManager" />
+	</bean>
+	<bean id="simpleSecurityMetadataSource"
+		class="com.office.oa.security.authentication.metadata.SimpleSecurityMetadataSource" />
+	<bean id="simpleAccessDecisionManager"
+		class="com.office.oa.security.authentication.decide.SimpleAccessDecisionManager" />
+
+
+	<!-- ====================配置Cookies自动登录================== -->
+	<bean id="rememberMeServices"
+		class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+		<!-- Cookies保存的属性名 -->
+		<property name="key" value="com.office.oa" />
+		<!-- 页面多选框标签的属性名 -->
+		<property name="parameter" value="rememberMe" />
+		<!-- Cookies时间(秒) -->
+		<property name="tokenValiditySeconds" value="1209600" />
+		<property name="userDetailsService" ref="simpleUserDetailsService" />
+	</bean>
+
+	<!-- ========================配置登出======================== -->
+
+	<bean id="simpleLogoutSuccessHandler"
+		class="com.office.oa.security.authentication.handler.SimpleLogoutSuccessHandler" />
+
+</beans>

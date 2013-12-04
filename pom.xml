@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>OA</groupId>
-	<artifactId>OA</artifactId>
+	<groupId>com.office</groupId>
+	<artifactId>oa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>oa</name>
@@ -10,8 +10,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<dependencies>
 
+	<dependencies>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -40,39 +45,37 @@
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-core</artifactId>
-			<version>2.3.15.1</version>
+			<version>2.3.15.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-json-plugin</artifactId>
-			<version>2.3.15.1</version>
+			<version>2.3.15.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-spring-plugin</artifactId>
-			<version>2.3.15.1</version>
+			<version>2.3.15.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.0.0.CR2</version>
+			<version>4.2.7.SP1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>4.2.0.SP1</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
-			<packaging>jar</packaging>
 			<version>2.6.6</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.1</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -80,14 +83,14 @@
 			<version>5.1.21</version>
 		</dependency>
 		<dependency>
-			<modelVersion>4.0.0</modelVersion>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<packaging>bundle</packaging>
-			<name>Apache Log4j</name>
 			<version>1.2.17</version>
-			<description>Apache Log4j 1.2</description>
-			<url>http://logging.apache.org/log4j/1.2/</url>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.12.2</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -97,8 +100,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>

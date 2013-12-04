@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- ====================配置不需要过滤的资源==================== -->
+	<http pattern="/script/**" security="none" />
+	<http pattern="/images/**" security="none" />
+	<http pattern="/css/**" security="none" />
+	<!-- ======================================================= -->
+
+	<http use-expressions="true" entry-point-ref="authenticationEntryPoint"
+		access-denied-page="/page/index/no_auth.jsp">
+		<logout invalidate-session="true" logout-url="/logout"
+			success-handler-ref="simpleLogoutSuccessHandler" />
+
+		<custom-filter ref="simpleLoginFilter" position="FORM_LOGIN_FILTER" />
+		<custom-filter ref="simpleSecurityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+
+		<!-- 配置Cookies自动登录 -->
+		<remember-me services-ref="rememberMeServices" key="${security.sessionKey" />
+		<!-- 配置session超时后跳转的页面，以及一个用户只能登陆一次 -->
+		<session-management invalid-session-url="/page/index/session_timeout.jsp">
+			<concurrency-control max-sessions="1" />
+		</session-management>
+	</http>
+	<!-- 配置身份验证管理器 -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="simpleAuthenticationProvider" />
+	</authentication-manager>
+
+</beans:beans>
