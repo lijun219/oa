@@ -1,8 +1,12 @@
 package com.office.oa.dao;
 
 import com.office.oa.model.ProcedureRecord;
-
-public interface ProcedureRecorDao {
+/***
+ * 流程日志
+ * @author lijun
+ *
+ */
+public interface ProcedureRecorDao  {
 	
 	ProcedureRecord getById(int id);
 }
