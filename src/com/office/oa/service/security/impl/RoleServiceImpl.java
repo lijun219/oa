@@ -20,6 +20,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
 	@Resource(name = "roleDao")
 	RoleDao roleDao;
 
+	@Resource(name = "roleDao")
 	public void setRoleDao(RoleDao roleDao) {
 		super.setBaseDao(roleDao);
 	}

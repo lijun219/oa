@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +30,7 @@ public class RoleAction {
 	List<Role> rows = new ArrayList<Role>();
 
 	public String list() {
-		System.out.println(roleService.getTotalCount());
+		rows = roleService.getAllList();
 		return "json";
 	}
 }
