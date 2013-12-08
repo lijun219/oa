@@ -28,7 +28,7 @@ public class RoleAction {
 	List<Role> rows = new ArrayList<Role>();
 
 	public String list() {
-		System.out.println(roleService.getTotalCount());
+		rows = roleService.getAllList();
 		return "json";
 	}
 }
