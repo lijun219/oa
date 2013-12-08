@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.omg.PortableInterceptor.SUCCESSFUL;
+
 import lombok.Getter;
 import lombok.Setter;
 
