@@ -29,7 +29,6 @@ import org.hibernate.internal.CriteriaImpl.OrderEntry;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Repository;
 
 import com.office.oa.dao.BaseDao;
 import com.office.oa.model.BaseEntity;
@@ -46,13 +45,12 @@ import com.office.oa.util.ReflectionUtil;
  */
 
 @SuppressWarnings("unchecked")
-@Repository("baseDao")
 public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
 	private static final String ORDER_LIST_PROPERTY_NAME = "orderList";// "排序"属性名称
 	private static final String CREATE_DATE_PROPERTY_NAME = "createDate";// "创建日期"属性名称
 
-	private Class<T> entityClass;
+	private Class<T> clazz;
 
 	@Getter
 	@Setter
@@ -66,7 +64,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 		Type type = getClass().getGenericSuperclass();
 		if (type instanceof ParameterizedType) {
 			Type[] parameterizedType = ((ParameterizedType) type).getActualTypeArguments();
-			this.entityClass = (Class<T>) parameterizedType[0];
+			this.clazz = (Class<T>) parameterizedType[0];
 		}
 	}
 
@@ -79,24 +77,24 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
 	@Override
 	public T get(PK id) {
-		return (T) this.getSession().get(this.entityClass, id);
+		return (T) this.getSession().get(this.clazz, id);
 	}
 
 	@Override
 	public T load(PK id) {
-		return (T) this.getSession().load(this.entityClass, id);
+		return (T) this.getSession().load(this.clazz, id);
 	}
 
 	@Override
 	public List<T> getAllList() {
-		Criteria criteria = getSession().createCriteria(entityClass);
+		Criteria criteria = getSession().createCriteria(clazz);
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
 
 	@Override
 	public Long getTotalCount() {
-		return (Long) uniqueResult("SELECT COUNT(*) FROM " + entityClass.getName());
+		return (Long) uniqueResult("SELECT COUNT(*) FROM " + clazz.getName());
 	}
 
 	@Override
@@ -141,7 +139,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
 	@Override
 	public void delete(PK id) {
-		T entity = (T) getSession().get(this.entityClass, id);
+		T entity = (T) getSession().get(this.clazz, id);
 		getSession().delete(entity);
 	}
 
@@ -154,7 +152,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 	public void delete(PK[] ids) {
 
 		for (PK id : ids) {
-			T entity = (T) getSession().get(this.entityClass, id);
+			T entity = (T) getSession().get(this.clazz, id);
 			getSession().delete(entity);
 		}
 	}
@@ -192,13 +190,13 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
 	@Override
 	public Pager findPager(Pager pager) {
-		Criteria criteria = getSession().createCriteria(entityClass);
+		Criteria criteria = getSession().createCriteria(clazz);
 		return findPager(pager, criteria);
 	}
 
 	@Override
 	public Pager findPager(Pager pager, Criterion... criterions) {
-		Criteria criteria = getSession().createCriteria(entityClass);
+		Criteria criteria = getSession().createCriteria(clazz);
 		for (Criterion criterion : criterions) {
 			criteria.add(criterion);
 		}
@@ -207,7 +205,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 
 	@Override
 	public Pager findPager(Pager pager, Order... orders) {
-		Criteria criteria = getSession().createCriteria(entityClass);
+		Criteria criteria = getSession().createCriteria(clazz);
 		for (Order order : orders) {
 			criteria.addOrder(order);
 		}
@@ -241,7 +239,7 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 			}
 		}
 
-		ClassMetadata classMetadata = sessionFactory.getClassMetadata(entityClass);
+		ClassMetadata classMetadata = sessionFactory.getClassMetadata(clazz);
 		if (!StringUtils.equals(orderBy, ORDER_LIST_PROPERTY_NAME) && ArrayUtils.contains(classMetadata.getPropertyNames(), ORDER_LIST_PROPERTY_NAME)) {
 			criteria.addOrder(Order.asc(ORDER_LIST_PROPERTY_NAME));
 			criteria.addOrder(Order.desc(CREATE_DATE_PROPERTY_NAME));

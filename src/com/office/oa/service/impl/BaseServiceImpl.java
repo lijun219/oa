@@ -3,8 +3,6 @@ package com.office.oa.service.impl;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +19,8 @@ import com.office.oa.util.Pager;
  * 
  * Service基类，提供一系列操作方法
  * 
+ * 请在子类调用super.setBaseDao(BaseDao<User, String>);
+ * 
  * @author huan.tao
  * 
  * @param <T>
@@ -31,7 +31,6 @@ public class BaseServiceImpl<T, PK extends Serializable> implements BaseService<
 
 	@Getter
 	@Setter
-	@Resource(name = "baseDao")
 	BaseDao<T, PK> baseDao;
 
 	@Override

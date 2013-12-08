@@ -5,10 +5,8 @@
 <struts>
 	<package name="security-role" namespace="/security/role"
 		extends="struts-default,json-default">
-
 		<action name="list" class="roleAction" method="list">
 			<result type="json" name="json"></result>
 		</action>
-
 	</package>
 </struts>
